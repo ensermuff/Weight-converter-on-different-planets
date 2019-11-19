@@ -44,9 +44,11 @@ public class WeightOnPlanetsFinder extends Application {
     public void start(Stage primaryStage) throws FileNotFoundException {
         window = primaryStage;
         TextField weight = new TextField();
+        TextField convertedWeight = new TextField();
         //Label is a string that user doesn't interact with
         Label label1 = new Label ("Weight: ");
         weight.setPromptText("Input your body weight in pounds: ");
+        Label label3 = new Label("Converted weight on selected Planet:");
         output.setPromptText("Your weight is: " + weight);
         output.setPrefColumnCount(20);
         output.setPrefRowCount(10);
@@ -149,7 +151,6 @@ public class WeightOnPlanetsFinder extends Application {
 
         Label label2 = new Label ("Pick the planet that you want to compare your earth's weight with: ");
 
-        DecimalFormat df = new DecimalFormat("#.##");
         Mercury = new Button ("Mercury");
         Mercury.setOnAction(
                 e -> {
@@ -160,12 +161,10 @@ public class WeightOnPlanetsFinder extends Application {
                         double mercGrav = 3.7;
                         double mercWeight = convMerc(userWeight, earthGrav, mercGrav);
                         Mer = String.valueOf(mercWeight);
-                        Merc = df.format(Mer);
-
                     } catch (NumberFormatException ex) {
 
                     } finally {
-                         weight.setText(Mer);
+                         convertedWeight.setText(Mer);
                     }
                 }
         );
@@ -181,7 +180,7 @@ public class WeightOnPlanetsFinder extends Application {
             } catch (NumberFormatException ex) {
 
             } finally {
-                weight.setText(Ven);
+                convertedWeight.setText(Ven);
             }
         } );
         Mars = new Button ("Mars");
@@ -196,7 +195,7 @@ public class WeightOnPlanetsFinder extends Application {
             } catch (NumberFormatException ex) {
 
             } finally {
-                weight.setText(Mar);
+                convertedWeight.setText(Mar);
             }
         });
         Jupiter = new Button ("Jupiter");
@@ -221,10 +220,11 @@ public class WeightOnPlanetsFinder extends Application {
 
 
         VBox layout1 = new VBox(20);
-        layout1.getChildren().addAll(label1, weight, label2, Mercury, root, Venus, root1, Mars, root2, Jupiter, root3,
+        layout1.getChildren().addAll(label1, weight,label3, convertedWeight, label2, Mercury, root, Venus, root1, Mars, root2, Jupiter, root3,
                 Saturn, root4, Uranus, root5, Neptune, root6);
 
         scene1 = new Scene(layout1, 1000,1000);
+
 
         // Add the scene to the stage
         window.setScene(scene1); // we didn't incorporate the  action of changing scenes, so if you want to observe
